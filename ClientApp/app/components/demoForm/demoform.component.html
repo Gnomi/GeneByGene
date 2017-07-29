@@ -1,0 +1,17 @@
+﻿<div>
+<h2>New Form: Sample</h2>
+    <form #f="ngForm"
+          (ngSubmit)="onSubmit(f.value)"
+          class="ui form">
+
+        <div>
+            <label for="barcode">barcode</label>
+            <input type="text"
+                   id="barcode"
+                   placeholder="123456"
+                   name="barcode" ngModel>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>  
+</div>

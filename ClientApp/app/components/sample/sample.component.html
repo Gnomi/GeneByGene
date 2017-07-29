@@ -1,0 +1,53 @@
+﻿<h1>Gene by Gene Samples</h1>
+
+<div class='container-fluid'>
+    <label for="All">All</label>
+    <input type="button" value="Get All Samples" (click)="getAllSamples()" />
+</div>
+
+<div class='container-fluid'>
+    <label for="Name">Name</label>
+    <input type="text" id="Name" placeholder="John" [(ngModel)]="searchName" />
+    <input type="button" value="Get Samples by Name" (click)="getSamplesByName(searchName)" />
+</div>
+
+
+<div *ngIf="statuses" class='container-fluid'>
+    <select [(ngModel)]="selectedStatus">
+        <option *ngFor="let st of statuses" [value]="st.status">
+            {{st.status}}
+        </option>
+    </select>
+    <input type="button" value="Get Samples by Status" (click)="getSamplesByStatus(selectedStatus)" />
+
+</div>
+
+
+ 
+
+<div *ngIf="samples" class='container-fluid'>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>SampleId</th>
+                <th>BarCode</th>
+                <th>createdAt</th>
+                <th>createdBy</th>
+                <th>First Name</th>
+                <th>Lastt Name</th>
+                <th>status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sample of samples">
+                <td>{{sample.sampleId}}</td>
+                <td>{{sample.barcode}}</td>
+                <td>{{sample.createdAt}}</td>
+                <td>{{sample.userId}}</td>
+                <td>{{sample.user.firstName}}</td>
+                <td>{{sample.user.lastName}}</td>
+                <td>{{sample.status.status}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
