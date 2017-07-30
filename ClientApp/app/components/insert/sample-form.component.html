@@ -1,3 +1,49 @@
 ﻿<div class="container">
-hello sample form
+    <div class="col-sm-9">
+        <div [hidden]="submitted">
+            <h1>New Sample Form</h1>
+            <form [formGroup]="sampleForm" *ngIf="active" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="barcode">barcode</label>
+                    <input type="text" id="barcode" class="form-control" placeholder="12345"
+                           formControlName="barcode" required>
+                    <div *ngIf="formErrors.barcode" class="alert alert-danger">
+                        {{ formErrors.barcode }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="createdAt">Created at</label>
+                    <input type="date" id="createdAt" class="form-control" placeholder="mm/dd/yyyy"
+                           formControlName="createdAt">
+                </div>
+                <div class="form-group">
+                    <label for="user">user</label>
+                    <select id="user" class="form-control"
+                            formControlName="user" required>
+                        <option *ngFor="let u of Users" [value]="u.userId">{{u.firstName}} {{u.lastName}}</option>
+                    </select>
+                    <div *ngIf="formErrors.User" class="alert alert-danger">
+                        {{ formErrors.user }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" class="form-control"
+                            formControlName="status" required>
+                        <option *ngFor="let s of Statuses" [value]="s.statusId">{{s.status}}</option>
+                    </select>
+                    <div *ngIf="formErrors.Status" class="alert alert-danger">
+                        {{ formErrors.status }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success"
+                        [disabled]="!sampleForm.valid">
+                    Submit
+                </button>               
+            </form>
+        </div>
+        <sample-submitted [sample]="mySample" [(submitted)]="submitted"> </sample-submitted>
+    </div>
+
 </div>
+ 

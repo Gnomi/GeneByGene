@@ -9,7 +9,7 @@ namespace Angular.Models
 {
     public class Sample
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SampleId { get; set; }
 
         public string Barcode { get; set; }

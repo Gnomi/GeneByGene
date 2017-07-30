@@ -6,9 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Angular.Data;
 using Angular.Models;
+ 
 
 namespace Angular.Controllers
 {
+    public class AuthRequest
+    {
+        public string Value { get; set; }
+    }
+
     [Route("api/[controller]")]
     public class SampleController : Controller
     {
@@ -71,8 +77,31 @@ namespace Angular.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]dynamic authReq)
         {
+            
+            DateTime tempdate;
+            int iTemp;
+            string sTemp = string.Empty;
+            Sample aSample = new Sample();
+            aSample.Barcode = authReq["barcode"];
+            sTemp = authReq["createdAt"];
+            DateTime.TryParse(sTemp, out tempdate);
+            if (DateTime.MinValue == tempdate) tempdate = DateTime.Now;
+            aSample.CreatedAt = tempdate;
+
+            sTemp = authReq["userId"];
+            int.TryParse(sTemp, out iTemp);
+            aSample.UserId = iTemp;
+
+            sTemp = authReq["statusId"];
+            int.TryParse(sTemp, out iTemp);
+            aSample.StatusId = iTemp;
+
+            _context.Samples.Add(aSample);
+            _context.SaveChanges();
+
+            return Ok();
         }
 
         // PUT api/values/5

@@ -9,19 +9,21 @@ namespace Angular.Data
 {
     public static class DbInitializer
     {
+        
         //private IHostingEnvironment _env;
         public static void Initialize(GeneContext context, IHostingEnvironment env)
         {
 
+
             string[] stringSeparators = new string[] { "\r\n" };
 
-            //context.Database.EnsureDeleted();
+           // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             if (context.Users.Any())
             {
                 return;   // DB has been seeded
             }
-                        
+            
             var contents = System.IO.File.ReadAllText(env.ContentRootPath + "/data_files/Users.txt").Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
             var csv = from line in contents
                       select line.Split(',').ToArray();
@@ -49,7 +51,7 @@ namespace Angular.Data
             foreach (var row in csv.Skip(1)
                 .TakeWhile(r => r.Length > 1 && r.Last().Trim().Length > 0))
             {
-                context.Samples.Add(new Sample{SampleId = int.Parse(row[0]), Barcode = row[1],
+                context.Samples.Add(new Sample{Barcode = row[1],
                     CreatedAt = System.DateTime.Parse(row[2]), UserId=int.Parse(row[3]), StatusId=int.Parse(row[4]) });
             }
             context.SaveChanges();

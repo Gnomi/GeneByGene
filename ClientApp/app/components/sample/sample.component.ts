@@ -1,6 +1,9 @@
 ﻿import { Component, Inject, OnInit, OnChanges } from '@angular/core';
 import { Sample } from '../../models/sample';
-import { Http } from '@angular/http';
+import { Headers, Http } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+
 import { Status } from '../../models/status';
 @Component({
     selector: 'sample',
@@ -23,9 +26,14 @@ export class SampleComponent implements OnInit {
     }
 
     public loadStatus() {
+        //const url = this._originUrl + '/api/status';
+        //return this.http.get(url)
+        //    .toPromise()
+        //    .then(response => response.json().data as Status[])
+        //    .catch(this.handleError);
         this.http.get(this._originUrl + '/api/status').subscribe(result => {
             this.statuses = result.json() as Status[];
-        })
+        });
     }
 
     //constructor(private http: Http, @Inject('ORIGIN_URL') originUrl: string) {
@@ -41,10 +49,23 @@ export class SampleComponent implements OnInit {
     //}; 
     
 
-    public getSamplesByName(searchName: string) {
+    public getSamplesByName(searchName: string) {       
         this.http.get('/api/sample/Users/' + searchName).subscribe(result => {
                 this.samples  = result.json() as Sample[];
             });
+    }
+
+    //getAllSamples(): Promise<Sample[]> {
+    //    return this.http.get("/api/sample")
+    //        .toPromise()
+    //        .then(response => response.json().data as Sample[])
+    //        .catch(this.handleError);
+    //}
+
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
     }
 
     public getAllSamples() {
@@ -53,11 +74,19 @@ export class SampleComponent implements OnInit {
         });
     }
 
+
+    //getSamplesByStatus(selectedStatus: string): Promise<Sample[]> {
+    //    const ssURL = "/api/sample/status/" + selectedStatus;
+    //    return this.http.get(ssURL)
+    //        .toPromise()
+    //        .then(response => response.json().data as Sample[])
+    //        .catch(this.handleError);
+    //}
+
     public getSamplesByStatus(selectedStatus: string) {
         this.http.get('/api/sample/status/' + selectedStatus).subscribe(result => {
             this.samples = result.json() as Sample[];
         });
-
     }
 
     //constructor(http: Http) {

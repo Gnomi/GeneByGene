@@ -10,9 +10,9 @@ import { CounterComponent } from './components/counter/counter.component';
 import { HelloWorldComponent } from './components/helloworld/helloworld.component';
 import { DemoFormComponent } from './components/demoform/demoform.component';
 import { SampleComponent } from './components/sample/sample.component';
-//import { ClientsideComponent } from './components/clientside/clientside.component';
 //import { FilteredList } from './components/clientside/filteredlist.component';
-//import { InsertComponent } from './components/insert/insert.component';
+import { SampleFormComponent } from './components/insert/sample-form.component';
+import { SubmittedComponent } from './components/insert/submitted.component';
 
 
 export const sharedConfig: NgModule = {
@@ -24,8 +24,8 @@ export const sharedConfig: NgModule = {
         FetchDataComponent,
         HomeComponent,
         HelloWorldComponent,
-  //      InsertComponent,
-       // ClientsideComponent,
+        SampleFormComponent,
+        SubmittedComponent,
         //FilteredList,
         DemoFormComponent,
         SampleComponent
@@ -40,9 +40,8 @@ export const sharedConfig: NgModule = {
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'hello', component: HelloWorldComponent }, 
             { path: 'demoform', component: DemoFormComponent },
-            { path: 'sample', component: SampleComponent },
-            //{ path: 'clientside', component: ClientsideComponent },
-    //        { path: 'insert', component: InsertComponent },
+            { path: 'sample', component: SampleComponent },            
+            { path: 'New-Form', component: SampleFormComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

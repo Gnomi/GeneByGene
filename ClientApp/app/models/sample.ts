@@ -4,11 +4,11 @@ import { User } from "./user";
 export class Sample {
     constructor(
         sampleId: number,
-        barcode: string,
-        createdAt: string,
-        userId: number,
-        statusId: number,
-        status: Status,
-        user: User
+        public barcode: string,
+        public createdAt: Date,
+        public userId: number,
+        public statusId: number,
+        public status: Status,
+        public user: User
     ) { }
 }
