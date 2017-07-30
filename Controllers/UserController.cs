@@ -20,9 +20,14 @@ namespace Angular.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        //public IEnumerable<User> Get()
+        public IActionResult get()
         {
-            return _context.Users;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(_context.Users);
         }
 
 

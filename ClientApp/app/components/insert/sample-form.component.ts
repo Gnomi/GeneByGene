@@ -1,23 +1,23 @@
 ﻿
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Headers, Http } from '@angular/http';
 ///class files
 import { Sample } from '../../models/sample';
 import { User } from '../../models/user';
 import { Status } from '../../models/status';
 //to show what has been submitted
 import { SubmittedComponent } from './submitted.component';
+import { SampleService } from '../../service/sample.service';
 
 @Component({
     selector: 'sample-form-reactive',
-    templateUrl: './sample-form.component.html'
+    templateUrl: './sample-form.component.html',
+    providers: [SampleService]
 })
 
 export class SampleFormComponent implements OnInit {
-    Statuses: Status[];
-    Users: User[];
-    private _originUrl: string;
+    statuses: Status[];
+    users: User[];    
     sampleForm: FormGroup;
 
     public mySample = new Sample(0, '', new Date(Date.now()), 1, 0, null, null);
@@ -29,14 +29,13 @@ export class SampleFormComponent implements OnInit {
     // TODO: Workaround until NgForm has a reset method (#6822)
     active = true;
     addSample() {
-        this.mySample = new Sample(42, '', new Date('2017-7-16T00:00:00'), 0, 0, null, null);
+        this.mySample = new Sample(0, '', new Date(Date.now()), 0, 0, null, null);
         this.buildForm();
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }
 
-    constructor(private fb: FormBuilder, private http: Http, @Inject('ORIGIN_URL') originUrl: string) {
-        this._originUrl = originUrl;
+    constructor(private fb: FormBuilder, private sampleService: SampleService) {        
     }
     
     ngOnInit(): void {
@@ -66,6 +65,7 @@ export class SampleFormComponent implements OnInit {
 
 
     onSubmit() {
+        
         this.submitted = true;        
         this.mySample = this.sampleForm.value;
         this.mySample.barcode = this.sampleForm.controls["barcode"].value;
@@ -73,37 +73,31 @@ export class SampleFormComponent implements OnInit {
         this.mySample.statusId = this.sampleForm.controls["status"].value;
         this.mySample.userId = this.sampleForm.controls["user"].value;
         
-        this.create(this.mySample);        
-    }
+        
 
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-    private sampleUrl = 'api/sample';  // URL to web api
+        this.sampleService.createNewSample(this.mySample).then(a => {
+            this.mySample = null;
+        });
+        //this.create(this.mySample);        
+    }
     
-    create(item: Sample): Promise<Sample> {
-        //alert(JSON.stringify(item));
-            return this.http
-            .post(this.sampleUrl,
-            JSON.stringify(item),
-            { headers: this.headers })
-            .toPromise()
-            .then(res => res.json().data as Sample);
+    //create(item: Sample): Promise<Sample> {
+    //    //alert(JSON.stringify(item));
 
-    }
+    //        return this.http
+    //        .post(this.sampleUrl,
+    //        JSON.stringify(item),
+    //        { headers: this.headers })
+    //        .toPromise()
+    //        .then(res => res.json().data as Sample);
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
+    //}
 
     public loadStatus() {
-        this.http.get(this._originUrl + '/api/status').subscribe(result => {
-            this.Statuses = result.json() as Status[];
-        });
+        this.sampleService.getStatusesWithPromise().then(a => this.statuses = a);  
     }
     public loadUser() {
-        this.http.get(this._originUrl + '/api/user').subscribe(result => {
-            this.Users = result.json() as User[];
-        });
+        this.sampleService.getUsersWithPromise().then(a => this.users = a);  
     }
 
     onValueChanged(data?: any) {

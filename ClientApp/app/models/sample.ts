@@ -3,7 +3,7 @@ import { User } from "./user";
 
 export class Sample {
     constructor(
-        sampleId: number,
+        public sampleId: number,
         public barcode: string,
         public createdAt: Date,
         public userId: number,

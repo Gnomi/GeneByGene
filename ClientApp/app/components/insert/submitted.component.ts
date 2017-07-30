@@ -16,10 +16,15 @@ import { Sample } from '../../models/sample';
       <div class="col-xs-3">Created At</div>
       <div class="col-xs-9 pull-left">{{ sample.createdAt }}</div>
     </div>
+ 
     
 <br>   
   </div>`
 })
+
+
+//<sample-submitted[sample]="mySample"[(submitted)] = "submitted" > </sample-submitted>
+
 export class SubmittedComponent {
   @Input()  sample: Sample;
   @Input()  submitted = false;

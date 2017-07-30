@@ -20,7 +20,7 @@
                     <label for="user">user</label>
                     <select id="user" class="form-control"
                             formControlName="user" required>
-                        <option *ngFor="let u of Users" [value]="u.userId">{{u.firstName}} {{u.lastName}}</option>
+                        <option *ngFor="let u of users" [value]="u.userId">{{u.firstName}} {{u.lastName}}</option>
                     </select>
                     <div *ngIf="formErrors.User" class="alert alert-danger">
                         {{ formErrors.user }}
@@ -30,7 +30,7 @@
                     <label for="status">Status</label>
                     <select id="status" class="form-control"
                             formControlName="status" required>
-                        <option *ngFor="let s of Statuses" [value]="s.statusId">{{s.status}}</option>
+                        <option *ngFor="let s of statuses" [value]="s.statusId">{{s.status}}</option>
                     </select>
                     <div *ngIf="formErrors.Status" class="alert alert-danger">
                         {{ formErrors.status }}
@@ -39,11 +39,11 @@
                 <button type="submit" class="btn btn-success"
                         [disabled]="!sampleForm.valid">
                     Submit
-                </button>               
+                </button>
             </form>
         </div>
-        <sample-submitted [sample]="mySample" [(submitted)]="submitted"> </sample-submitted>
-    </div>
+        <div *ngIf="submitted">
+            <h2>You submitted successfully.</h2>
+            </div>
 
-</div>
- 
+        </div>
