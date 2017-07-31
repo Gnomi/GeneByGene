@@ -1,1 +1,2 @@
-https://jonhilton.net/2016/12/13/angular-2-and-net-core-your-first-component/
+please run create.sql to create a database.
+Open ReadMe.docx for additional details.
