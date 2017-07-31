@@ -1,0 +1,24 @@
+﻿<div class="container-fluid">
+    <hr>
+    <p>
+        Applying filter to client data
+    </p>
+    <hr>
+    
+    <input class="form-control" type="text"
+           [value]="filterText" [placeholder]="filterPlaceholder"
+           [formControl]="filterInput" />
+
+    <div>
+        <span>You typed this:</span><span class="bold" [innerHtml]="filterText"></span>
+    </div>
+    
+        <ul>
+            <li *ngFor="let item of _items | filter:{ barcode: filterText, createdAt: filterText  } : false">
+            {{ item.barcode }} -{{item.createdAt}} - {{ item.status.status }} - {{ item.user.firstName }} {{ item.user.lastName }}</li>
+        </ul>
+      
+
+
+
+</div>

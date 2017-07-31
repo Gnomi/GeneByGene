@@ -51,7 +51,8 @@ namespace Angular.Data
             foreach (var row in csv.Skip(1)
                 .TakeWhile(r => r.Length > 1 && r.Last().Trim().Length > 0))
             {
-                context.Samples.Add(new Sample{Barcode = row[1],
+                //SampleId = int.Parse(row[0]),
+                context.Samples.Add(new Sample{ Barcode = row[1],
                     CreatedAt = System.DateTime.Parse(row[2]), UserId=int.Parse(row[3]), StatusId=int.Parse(row[4]) });
             }
             context.SaveChanges();

@@ -5,43 +5,35 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-//import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-//import { CounterComponent } from './components/counter/counter.component';
-import { HelloWorldComponent } from './components/helloworld/helloworld.component';
-//import { DemoFormComponent } from './components/demoform/demoform.component';
 import { SampleComponent } from './components/sample/sample.component';
-//import { FilteredList } from './components/clientside/filteredlist.component';
+//import { filteredAppComponent } from './components/filteredlist/filteredApp.component';
+//import { FilteredList, FilterPipe } from './components/filteredlist/filteredlist.component';
+
+import { SampleFilterComponent, SamplePipe } from './components/filterPipe/sampleFilter.component';
 import { SampleFormComponent } from './components/insert/sample-form.component';
 import { SubmittedComponent } from './components/insert/submitted.component';
 import { SampleService } from './service/sample.service';
-import { HeroComponent } from './components/hero/hero.component';
+//import { HeroComponent } from './components/hero/hero.component';
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
     declarations: [
         AppComponent,
         NavMenuComponent,
-        HelloWorldComponent,
         HomeComponent,        
         SampleFormComponent,
-        SubmittedComponent,
-        //FilteredList,        
-        HeroComponent,
-        SampleComponent
-
-         
+        SubmittedComponent,                
+        SampleFilterComponent, SamplePipe,         
+        SampleComponent 
     ],
     providers: [SampleService],
     imports: [
         FormsModule, ReactiveFormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'sample', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            //{ path: 'counter', component: CounterComponent },
-            //{ path: 'fetch-data', component: FetchDataComponent },
-            { path: 'hello', component: HelloWorldComponent }, 
-            //{ path: 'demoform', component: DemoFormComponent },
-            { path: 'hero', component: HeroComponent },
+            { path: 'home', component: HomeComponent },                        
+                      
+            { path: 'pipe', component: SampleFilterComponent },  
             { path: 'sample', component: SampleComponent },            
             { path: 'New-Form', component: SampleFormComponent },
             { path: '**', redirectTo: 'sample' }

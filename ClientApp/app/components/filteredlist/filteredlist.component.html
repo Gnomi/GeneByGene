@@ -1,0 +1,14 @@
+﻿<input class="form-control" type="text" 
+       [value]="filterText" [placeholder]="filterPlaceholder" 
+       [formControl]="filterInput" />
+
+<div>
+    <span>You typed this:</span><span class="bold" [innerHtml]="filterText"></span>
+</div>
+<ul>
+    <li *ngFor="let item of _items | filter:{ label: filterText, description: filterText } : false">{{ item.value }} - {{ item.label }} - {{ item.description }}</li>
+</ul>
+ 
+
+<!-- <li *ngFor="let item of _items | filter:{ label: filterText, description: filterText } : false">{{ item.value }} - {{ item.label }} - {{ item.description }}</li>
+-->

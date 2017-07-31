@@ -20,7 +20,7 @@ export class SampleComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadStatus();
-        this.fetchSamples();
+        this.getSamples();
     }
 
     public getSamples(): void {

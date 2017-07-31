@@ -41,13 +41,12 @@
     </div>
 
         <div *ngIf="samples" class='container-fluid'>
-            <table class="table table-bordered table-striped">
+            <table class="table table-responsive table-hover">
                 <thead>
                     <tr>
                         <th>Sample Id</th>
                         <th>Barcode</th>
-                        <th>create dAt</th>
-                        <th>created By</th>
+                        <th>Created At</th>                        
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>status</th>
@@ -57,8 +56,7 @@
                     <tr *ngFor="let sample of samples">
                         <td>{{sample.sampleId}}</td>
                         <td>{{sample.barcode}}</td>
-                        <td>{{sample.createdAt | date: 'yyyy-MM-dd'}}</td>
-                        <td>{{sample.userId}}</td>
+                        <td>{{sample.createdAt | date: 'yyyy-MM-dd'}}</td>                        
                         <td>{{sample.user.firstName}}</td>
                         <td>{{sample.user.lastName}}</td>
                         <td>{{sample.status.status}}</td>
